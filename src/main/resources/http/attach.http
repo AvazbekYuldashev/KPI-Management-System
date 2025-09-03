@@ -1,0 +1,15 @@
+### Upload
+POST http://localhost:8080/api/v1/attach/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWxlZ3JhbS52emxvbUBtYWlsLnJ1Iiwicm9sZSI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwiaWQiOiJjZjEyMDkxMi1hOTg5LTQ3YmItOGQ3MC0wZTkxNTIxMmUxNDciLCJpYXQiOjE3NTM4OTg0ODksImV4cCI6MTc1Mzk4NDg4OX0.3bjoYvf_CJqu4T2CqPePhgxb7-Y4hgTMF2N5pl2sXPX6SRTBSxittBwwBd8xoN7guVoIaBbEtnXK1wDrtSfnuw
+
+--WebAppBoundary
+Content-Disposition: from-data; name="file"; filename="20200104_144729.jpg"
+
+< D:\20200104_144729.jpg
+
+
+### Get
+GET http://localhost:8080/api/v1/attach/open/876f151c-747f-40f7-9f28-18c2b97294ad.jpg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5OTg5MDI1OTc4OTEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlkIjoiMTUyNzEwMDgtY2ExZi00YmUzLWI4ZmQtMDA2MDBhMWNlNmM3IiwiaWF0IjoxNzUzNTMxMjU4LCJleHAiOjE3NTM2MTc2NTh9.I7g95qCzDk0H2RkS7lQDAwfc_fbYu9UuTYPOOAxbnUTlm56yrSe4pYFzHhbJ_kYfr0-0znn6SE6F5dgIp1loeg
+
