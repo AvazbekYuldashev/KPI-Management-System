@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class KpiAdminUpdateDTO {
-
+public class KpiAdminUpdatePhotoDTO {
+    private String kpiId;
+    private String photoId;
 }

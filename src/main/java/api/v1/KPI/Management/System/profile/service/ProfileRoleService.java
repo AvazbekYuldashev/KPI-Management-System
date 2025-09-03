@@ -57,7 +57,7 @@ public class ProfileRoleService {
         getByProfileId(id, lang);
         ProfileRoleEntity entity = new ProfileRoleEntity();
         entity.setProfileId(id);
-        entity.setRole(ProfileRole.ROLE_SUPERADMIN);
+        entity.setRole(ProfileRole.ROLE_MANAGER);
         return profileRoleRepository.save(entity).getId();
     }
 

@@ -1,0 +1,26 @@
+### Create
+POST http://localhost:8080/api/v1/admin/kpi
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX1VTRVIsUk9MRV9BRE1JTixST0xFX01BTkFHRVIiLCJpZCI6IjA3ZDEyNzJlLTA1Y2QtNGQwYS1iMjllLTRkZmJjNzcwMzFkNCIsImlhdCI6MTc1NjkyMDEwOCwiZXhwIjoxNzU3MDA2NTA4fQ.aeVQ4ez55fIXUn9RZ0cGZ4OlcHaQI0EiXqi1Mo3A3iblSxvRk4qhtFu08d1fb6QAt-B1K52EKnZLZ9OilN2LzQ
+
+{
+  "title": "asdasd",
+  "description": "asdasdas"
+}
+
+### Get By Id
+GET http://localhost:8080/api/v1/admin/kpi/b4163cf6-6b04-41d9-81fa-fa7786058950
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX1VTRVIsUk9MRV9BRE1JTixST0xFX01BTkFHRVIiLCJpZCI6IjA3ZDEyNzJlLTA1Y2QtNGQwYS1iMjllLTRkZmJjNzcwMzFkNCIsImlhdCI6MTc1NjkyMDEwOCwiZXhwIjoxNzU3MDA2NTA4fQ.aeVQ4ez55fIXUn9RZ0cGZ4OlcHaQI0EiXqi1Mo3A3iblSxvRk4qhtFu08d1fb6QAt-B1K52EKnZLZ9OilN2LzQ
+Content-Type: application/json
+
+### Filter
+POST http://localhost:8080/api/v1/admin/kpi/filter
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX1VTRVIsUk9MRV9BRE1JTixST0xFX01BTkFHRVIiLCJpZCI6IjA3ZDEyNzJlLTA1Y2QtNGQwYS1iMjllLTRkZmJjNzcwMzFkNCIsImlhdCI6MTc1NjkyMDEwOCwiZXhwIjoxNzU3MDA2NTA4fQ.aeVQ4ez55fIXUn9RZ0cGZ4OlcHaQI0EiXqi1Mo3A3iblSxvRk4qhtFu08d1fb6QAt-B1K52EKnZLZ9OilN2LzQ
+
+{
+
+}
+
+### Update
+

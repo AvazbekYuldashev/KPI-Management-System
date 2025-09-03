@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.security.util;
 
 
+import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.security.config.CustomUserDetails;
 import org.springframework.security.core.Authentication;
@@ -23,5 +24,10 @@ public class SpringSecurityUtil {
     public static boolean haseRole(ProfileRole role) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getAuthorities().stream().anyMatch(sga -> sga.getAuthority().equals(role.name()));
+    }
+
+    public static ProfileEntity getCurrentProfileEntity() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (ProfileEntity) authentication.getPrincipal();
     }
 }

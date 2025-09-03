@@ -66,4 +66,10 @@ public class KpiEntity {
     @JoinColumn(name = "mananger_id", insertable = false, updatable = false)
     private ProfileEntity mananger;
 
+    @PrePersist
+    protected void onCreate() {
+        this.visible = Boolean.TRUE;
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate  = LocalDateTime.now();
+    }
 }

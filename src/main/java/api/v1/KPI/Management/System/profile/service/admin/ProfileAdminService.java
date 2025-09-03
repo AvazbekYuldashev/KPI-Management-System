@@ -95,7 +95,7 @@ public class ProfileAdminService extends ProfileService {
         if (dto.getRole().equals(ProfileRole.ROLE_ADMIN)){
             return new AppResponse<>(profileRoleService.createAdmin(profile.getId(), lang));
         }
-        if (dto.getRole().equals(ProfileRole.ROLE_SUPERADMIN)){
+        if (dto.getRole().equals(ProfileRole.ROLE_MANAGER)){
             return new AppResponse<>(profileRoleService.createSuperAdmin(profile.getId(), lang));
         }
         return new AppResponse<>("not updated employee");
