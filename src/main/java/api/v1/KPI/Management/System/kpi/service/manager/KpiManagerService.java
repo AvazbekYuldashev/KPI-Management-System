@@ -100,4 +100,13 @@ public class KpiManagerService {
         }
         return optional.get();
     }
+
+    public AppResponse<Integer> getBallByProfileId(String id) {
+        Integer i = 0;
+        List<KpiEntity> list = kpiRepository.findByProfileId(id);
+        for (KpiEntity kpiEntity : list) {
+            i += kpiEntity.getPoints();
+        }
+        return new AppResponse<>(i);
+    }
 }
