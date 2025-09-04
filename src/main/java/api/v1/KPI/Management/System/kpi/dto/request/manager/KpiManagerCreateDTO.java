@@ -9,6 +9,6 @@ import lombok.Setter;
 public class KpiManagerCreateDTO {
     private String title;
     private String description;
-    private AttachDTO photoId;
+    private String photoId;
     private String manangerId;
 }

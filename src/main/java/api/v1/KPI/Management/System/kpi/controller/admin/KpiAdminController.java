@@ -49,6 +49,10 @@ public class  KpiAdminController {
         return ResponseEntity.ok().body(kpiAdminService.updatePoint(dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(kpiAdminService.deleteById(id));
+    }
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;
     }

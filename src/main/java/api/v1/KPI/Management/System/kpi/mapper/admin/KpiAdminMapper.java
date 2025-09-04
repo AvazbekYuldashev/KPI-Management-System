@@ -12,7 +12,7 @@ public class KpiAdminMapper {
         KpiEntity entity = new KpiEntity();
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
-        entity.setManangerId(dto.getManangerId());
+        entity.setManagerId(dto.getManagerId());
         entity.setPhotoId(dto.getPhotoId());
         return entity;
     }
@@ -23,8 +23,8 @@ public class KpiAdminMapper {
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setProfileId(entity.getProfileId());
-        dto.setManangerId(entity.getManangerId());
-        dto.setManangerCheck(entity.getManangerCheck());
+        dto.setManagerId(entity.getManagerId());
+        dto.setAdminCheck(entity.getManagerCheck());
         dto.setAdminCheck(entity.getAdminCheck());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setUpdatedDate(entity.getUpdatedDate());

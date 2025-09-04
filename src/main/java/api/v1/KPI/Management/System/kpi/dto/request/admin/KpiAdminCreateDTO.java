@@ -12,5 +12,5 @@ public class KpiAdminCreateDTO {
     private String title;
     private String description;
     private String photoId;
-    private String manangerId;
+    private String managerId;
 }
