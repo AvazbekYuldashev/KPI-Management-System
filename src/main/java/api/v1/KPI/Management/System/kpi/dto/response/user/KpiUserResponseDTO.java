@@ -15,11 +15,12 @@ public class KpiUserResponseDTO {
     private String profileId;
     private String title;
     private String description;
-    private AttachDTO photoId;
+    private String photoId;
     private String manangerId;
     private KpiStatus manangerCheck;
     private KpiStatus adminCheck;
     private Integer points;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private Boolean visible;
 }
