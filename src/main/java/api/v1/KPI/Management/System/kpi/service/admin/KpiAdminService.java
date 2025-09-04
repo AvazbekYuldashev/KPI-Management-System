@@ -6,11 +6,10 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminCreateDTO;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminFilterDTO;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminUpdatePhotoDTO;
+import api.v1.KPI.Management.System.kpi.dto.request.admin.*;
 import api.v1.KPI.Management.System.kpi.dto.response.admin.KpiAdminResponseDTO;
 import api.v1.KPI.Management.System.kpi.entity.KpiEntity;
+import api.v1.KPI.Management.System.kpi.enums.KpiStatus;
 import api.v1.KPI.Management.System.kpi.mapper.admin.KpiAdminMapper;
 import api.v1.KPI.Management.System.kpi.repository.KpiCustomRepository;
 import api.v1.KPI.Management.System.kpi.repository.KpiRepository;
@@ -21,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,11 +58,10 @@ public class KpiAdminService {
 
     public AppResponse<String> updatePhoto(KpiAdminUpdatePhotoDTO dto) {
         KpiEntity kpi = get(dto.getKpiId());
-        if (kpi.getPhotoId() != null && ! kpi.getPhotoId().equals(kpi)){
+        if (kpi.getPhotoId() != null && !kpi.getPhotoId().equals(dto.getPhotoId())){
             attachService.deleteSoft(kpi.getPhotoId());
         }
-        kpiRepository.updatePhoto(kpi.getId(), dto.getPhotoId());
-
+        kpiRepository.updatePhoto(kpi.getId(), dto.getPhotoId(), LocalDateTime.now());
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", AppLanguage.EN));
     }
 
@@ -73,4 +72,18 @@ public class KpiAdminService {
         }
         return optional.get();
     }
+
+    public AppResponse<String> updateStatus(KpiAdminCheckDTO dto) {
+        KpiEntity kpi = get(dto.getKpiId());
+        kpiRepository.updateAdminCheck(kpi.getId(), dto.getStatus(), LocalDateTime.now());
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", AppLanguage.EN));
+    }
+
+    public AppResponse<String> updatePoint(KpiAdminPointDTO dto) {
+        KpiEntity kpi = get(dto.getKpiId());
+        kpiRepository.updatePoint(kpi.getId(), dto.getPoint(), KpiStatus.APPROVED, LocalDateTime.now());
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", AppLanguage.EN));
+    }
+
+
 }
