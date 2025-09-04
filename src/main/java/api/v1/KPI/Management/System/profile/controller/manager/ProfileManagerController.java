@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/profile/admin")
+@RequestMapping("/manager/profile")
 @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
 public class ProfileManagerController {
     @Autowired

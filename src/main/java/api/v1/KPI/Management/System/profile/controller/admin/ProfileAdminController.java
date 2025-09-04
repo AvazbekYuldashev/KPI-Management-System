@@ -17,7 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/profile/admin")
+@RequestMapping("/admin/profile")
 @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
 public class ProfileAdminController {
     @Autowired
