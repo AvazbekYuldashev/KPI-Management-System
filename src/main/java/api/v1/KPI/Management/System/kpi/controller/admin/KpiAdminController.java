@@ -1,9 +1,7 @@
 package api.v1.KPI.Management.System.kpi.controller.admin;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminCreateDTO;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminFilterDTO;
-import api.v1.KPI.Management.System.kpi.dto.request.admin.KpiAdminUpdatePhotoDTO;
+import api.v1.KPI.Management.System.kpi.dto.request.admin.*;
 import api.v1.KPI.Management.System.kpi.dto.response.admin.KpiAdminResponseDTO;
 import api.v1.KPI.Management.System.kpi.service.admin.KpiAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/admin/kpi")
 @PreAuthorize("hasRole('ADMIN')")
-public class KpiAdminController {
+public class  KpiAdminController {
     @Autowired
     private KpiAdminService kpiAdminService;
 
@@ -41,7 +39,15 @@ public class KpiAdminController {
         return ResponseEntity.ok().body(kpiAdminService.updatePhoto(dto));
     }
 
+    @PatchMapping("/check")
+    public ResponseEntity<AppResponse<String>> updateStatus(@RequestBody KpiAdminCheckDTO dto){
+        return ResponseEntity.ok().body(kpiAdminService.updateStatus(dto));
+    }
 
+    @PatchMapping("/point")
+    public ResponseEntity<AppResponse<String>> updatePoint(@RequestBody KpiAdminPointDTO dto){
+        return ResponseEntity.ok().body(kpiAdminService.updatePoint(dto));
+    }
 
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;
