@@ -1,26 +1,28 @@
-package api.v1.KPI.Management.System.kpi.dto.response.manager;
+package api.v1.KPI.Management.System.kpi.dto.request.manager;
 
 import api.v1.KPI.Management.System.attach.dto.AttachDTO;
 import api.v1.KPI.Management.System.kpi.enums.KpiStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-public class KpiManagerResponseDTO {
+public class KpiManagerFilterDTO {
     private String id;
-
     private String profileId;
     private String title;
     private String description;
-    private String photoId;
+
+    private AttachDTO photoId;
     private String manangerId;
     private KpiStatus manangerCheck;
     private KpiStatus adminCheck;
     private Integer points;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private Boolean visible;
+
+    private LocalDate createdDateFrom;
+    private LocalDate createdDateTo;
+    private LocalDate updatedDateFrom;
+    private LocalDate updatedDateTo;
 }

@@ -17,8 +17,8 @@ public class KpiAdminResponseDTO {
     private String title;
     private String description;
     private String photoId;
-    private String manangerId;
-    private KpiStatus manangerCheck;
+    private String managerId;
+    private KpiStatus managerCheck;
     private KpiStatus adminCheck;
     private Integer points;
     private LocalDateTime createdDate;

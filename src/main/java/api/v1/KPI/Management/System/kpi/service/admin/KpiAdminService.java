@@ -50,7 +50,7 @@ public class KpiAdminService {
     }
 
     public Page<KpiAdminResponseDTO> filter(KpiAdminFilterDTO dto, int page, Integer size) {
-        FilterResultDTO<KpiEntity> resultDTO = kpiCustomRepository.filter(dto, page, size);
+        FilterResultDTO<KpiEntity> resultDTO = kpiCustomRepository.adminFilter(dto, page, size);
         List<KpiAdminResponseDTO> dtoList = resultDTO.getList().stream()
                 .map(kpiAdminMapper::toResponseDTO).toList();
         return new PageImpl<>(dtoList, PageRequest.of(page, size), resultDTO.getCount());
@@ -63,14 +63,6 @@ public class KpiAdminService {
         }
         kpiRepository.updatePhoto(kpi.getId(), dto.getPhotoId(), LocalDateTime.now());
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", AppLanguage.EN));
-    }
-
-    public KpiEntity get(String id) {
-        Optional<KpiEntity> optional = kpiRepository.findByIdAndVisibleTrue(id);
-        if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("KPI NOT FOUND"); // TODO
-        }
-        return optional.get();
     }
 
     public AppResponse<String> updateStatus(KpiAdminCheckDTO dto) {
@@ -86,4 +78,17 @@ public class KpiAdminService {
     }
 
 
+    public AppResponse<String> deleteById(String id) {
+        KpiEntity kpi = get(id);
+        kpiRepository.updateAdminVisible(id);
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", AppLanguage.EN));
+    }
+
+    public KpiEntity get(String id) {
+        Optional<KpiEntity> optional = kpiRepository.findByIdAndVisibleTrue(id);
+        if (optional.isEmpty()) {
+            throw new ResourceNotFoundException("KPI NOT FOUND"); // TODO
+        }
+        return optional.get();
+    }
 }

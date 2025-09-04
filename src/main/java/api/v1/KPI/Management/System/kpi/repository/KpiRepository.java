@@ -25,8 +25,8 @@ public interface KpiRepository extends JpaRepository<KpiEntity, String> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE KpiEntity k SET k.manangerCheck = :status, k.updatedDate = :now WHERE k.id = :idP ")
-    void updateManangerCheck(@Param("idP") String id, @Param("status") KpiStatus status, @Param("now") LocalDateTime now);
+    @Query("UPDATE KpiEntity k SET k.managerCheck = :status, k.updatedDate = :now WHERE k.id = :idP ")
+    void updateManagerCheck(@Param("idP") String id, @Param("status") KpiStatus status, @Param("now") LocalDateTime now);
 
     @Modifying
     @Transactional
@@ -37,4 +37,10 @@ public interface KpiRepository extends JpaRepository<KpiEntity, String> {
     @Transactional
     @Query("UPDATE KpiEntity k SET k.points = :points, k.adminCheck = :statusP, k.updatedDate = :now WHERE k.id = :idP ")
     void updatePoint(@Param("idP") String id, @Param("points") Integer points, @Param("statusP") KpiStatus status, @Param("now") LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE KpiEntity k SET k.visible = false WHERE k.id = :idP ")
+    void updateAdminVisible(@Param("idP") String id);
+
 }

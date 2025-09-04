@@ -32,12 +32,12 @@ public class KpiEntity {
     @Column(name = "photo_id")
     private String photoId;
 
-    @Column(name = "mananger_id")
-    private String manangerId;
+    @Column(name = "manager_id")
+    private String managerId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "mananger_check")
-    private KpiStatus manangerCheck;
+    @Column(name = "manager_check")
+    private KpiStatus managerCheck;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "admin_check")
