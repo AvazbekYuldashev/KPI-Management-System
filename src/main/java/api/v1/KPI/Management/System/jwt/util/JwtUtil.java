@@ -23,14 +23,11 @@ public class JwtUtil {
     private static final String secretKey = "veryLongSecretmazgillattayevlasharaaxmojonjinnijonsurbetbekkiydirhonuxlatdibekloxovdangasabekochkozjonduxovmashaynikmaydagapchishularnioqiganbolsangizgapyoqaniqsizmazgi";
 
 
-    public static String encode(String username, String id, List<ProfileRole> roleList) {
-        String strRoles = roleList.stream().map(Enum::name)
-                .collect(Collectors.joining(","));
-
+    public static String encode(String username, String id, ProfileRole role) {
         return Jwts
                 .builder()
                 .subject(username)
-                .claim("role", strRoles)
+                .claim("role", role)
                 .claim("id", id)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + tokenLiveTimeOneDay))

@@ -5,7 +5,6 @@ package api.v1.KPI.Management.System.security.service;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.ProfileRoleService;
 import api.v1.KPI.Management.System.security.config.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private ProfileRepository profileRepository;
-    @Autowired
-    private ProfileRoleService profileRoleService;
+
 
 
     @Override
@@ -33,7 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
         ProfileEntity profile = optional.get();
-        List<ProfileRole> roleList = profileRoleService.getByProfileId(profile.getId(), profile.getLanguage());
-        return new CustomUserDetails(profile, roleList);
+        return new CustomUserDetails(profile);
     }
 }

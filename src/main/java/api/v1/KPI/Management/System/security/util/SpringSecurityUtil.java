@@ -21,13 +21,8 @@ public class SpringSecurityUtil {
         return user.getId();
     }
 
-    public static boolean haseRole(ProfileRole role) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getAuthorities().stream().anyMatch(sga -> sga.getAuthority().equals(role.name()));
-    }
-
-    public static ProfileEntity getCurrentProfileEntity() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (ProfileEntity) authentication.getPrincipal();
+    public static ProfileRole haseRole() {
+        CustomUserDetails user = getCurrentProfile();
+        return user.getRole();
     }
 }

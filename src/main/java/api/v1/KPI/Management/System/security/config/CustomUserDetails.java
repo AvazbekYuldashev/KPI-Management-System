@@ -25,23 +25,22 @@ public class CustomUserDetails implements UserDetails {
     private String username;
     private String password;
     private GeneralStatus status;
+    private ProfileRole role;
     private Collection<? extends GrantedAuthority> authorities;
     private Boolean visible;
 
     private String attachId;
 
 
-    public CustomUserDetails(ProfileEntity profile, List<ProfileRole> roleList) {
+    public CustomUserDetails(ProfileEntity profile) {
         this.id = profile.getId();
         this.name = profile.getName();
         this.surname = profile.getSurname();
         this.username = profile.getUsername();
         this.password = profile.getPassword();
         this.status = profile.getStatus();
-        List<SimpleGrantedAuthority> roles = new ArrayList<>();
-        for (ProfileRole role : roleList) {roles.add(new SimpleGrantedAuthority(role.name()));}
-        roleList.stream().map(item -> new SimpleGrantedAuthority(item.name())).forEach(roles::add);
-        this.authorities = roles;
+        this.role = profile.getRole();
+        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + profile.getRole().name()));
         this.visible = profile.getVisible();
     }
     @Override

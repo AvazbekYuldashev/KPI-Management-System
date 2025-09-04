@@ -6,17 +6,16 @@ import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.attach.service.AttachService;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.admin.*;
 import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
-import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.ProfileRoleService;
-import api.v1.KPI.Management.System.profile.service.user.ProfileService;
+import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -40,8 +39,6 @@ public class ProfileAdminService extends ProfileService {
     private CustomProfileRepository customProfileRepository;
     @Autowired
     private ProfileMapper profileMapper;
-    @Autowired
-    private ProfileRoleService profileRoleService;
     @Autowired
     private AttachService attachService;
 
@@ -72,32 +69,26 @@ public class ProfileAdminService extends ProfileService {
     }
 
     /// Updates the status for the given user ID.
-    public AppResponse<String> changeStatus(String id, ProfileChangeStatusDTO dto, AppLanguage lang) {
-        profileRepository.changeStatus(id, dto.getStatus());
+    public AppResponse<String> changeStatus(ProfileChangeStatusDTO dto, AppLanguage lang) {
+        profileRepository.changeStatus(dto.getId(), dto.getStatus());
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
-
     }
 
-    public Page<ProfileDTO> filter(ProfileFilterDTO dto, int page, Integer size) {
+    public Page<ProfileResponseDTO> filter(ProfileFilterDTO dto, int page, int size) {
         FilterResultDTO<ProfileEntity> resultDTO = customProfileRepository.filter(dto, page, size);
-        List<ProfileDTO> dtoList = resultDTO.getList().stream()
-                .map(profileMapper::toInfoDTO).toList();
+        List<ProfileResponseDTO> dtoList = resultDTO.getList().stream()
+                .map(profileMapper::toallResponseDTO).toList();
         return new PageImpl<>(dtoList, PageRequest.of(page, size), resultDTO.getCount());
     }
 
-    public AppResponse<String> removeRole(ProfileUpdateRole dto, AppLanguage lang) {
-        ProfileEntity profile = getById(dto.getId(), lang);
-        return profileRoleService.deleteAdminByProfileId(dto, lang);
+    ///  Update the role for the given user ID.
+    public AppResponse<String> changeRole(@Valid ProfileChangeRoleDTO dto, AppLanguage lang) {
+        profileRepository.changeRole(dto.getId(), dto.getRole());
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
     }
 
-    public AppResponse<String> addRole(ProfileUpdateRole dto, AppLanguage lang) {
-        ProfileEntity profile = getById(dto.getId(), lang);
-        if (dto.getRole().equals(ProfileRole.ROLE_ADMIN)){
-            return new AppResponse<>(profileRoleService.createAdmin(profile.getId(), lang));
-        }
-        if (dto.getRole().equals(ProfileRole.ROLE_MANAGER)){
-            return new AppResponse<>(profileRoleService.createSuperAdmin(profile.getId(), lang));
-        }
-        return new AppResponse<>("not updated employee");
+    public AppResponse<String> changePassword(@Valid ChangePasswordDTO dto, AppLanguage lang) {
+        profileRepository.changePassword(dto.getId(), dto.getPassword());
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
     }
 }

@@ -9,5 +9,7 @@ import lombok.Setter;
 @Setter
 public class ProfileChangeStatusDTO {
     @NotNull
+    private String id;
+    @NotNull
     private GeneralStatus status;
 }

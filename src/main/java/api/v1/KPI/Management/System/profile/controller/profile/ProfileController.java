@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.profile.controller.user;
+package api.v1.KPI.Management.System.profile.controller.profile;
 
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
@@ -8,7 +8,7 @@ import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.dto.user.ProfilePasswordUpdate;
 import api.v1.KPI.Management.System.profile.dto.user.ProfilePhotoUpdate;
 import api.v1.KPI.Management.System.profile.dto.user.ProfileUsernameUpdateDTO;
-import api.v1.KPI.Management.System.profile.service.user.ProfileService;
+import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,11 +64,8 @@ public class ProfileController {
         return ResponseEntity.ok().body(profileService.deletebyId(id, lang));
     }
 
-
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;
     }
-
-
 
 }
