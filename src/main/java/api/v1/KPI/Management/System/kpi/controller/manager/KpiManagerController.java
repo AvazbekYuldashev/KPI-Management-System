@@ -59,6 +59,10 @@ public class KpiManagerController {
         return ResponseEntity.ok().body(kpiManagerService.deleteById(id));
     }
 
+    @GetMapping("/ball/{id}")
+    public ResponseEntity<AppResponse<Integer>> getBall(@PathVariable String id){
+        return ResponseEntity.ok().body(kpiManagerService.getBallByProfileId(id));
+    }
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;
     }

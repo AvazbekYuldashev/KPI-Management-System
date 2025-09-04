@@ -52,5 +52,9 @@ public class KpiUserController {
         return page > 0 ? page - 1 : 1;
     }
 
+    @GetMapping("/ball/{id}")
+    public ResponseEntity<AppResponse<Integer>> getBall(@PathVariable String id){
+        return ResponseEntity.ok().body(kpiUserService.getBallByProfileId(id));
+    }
 
 }
