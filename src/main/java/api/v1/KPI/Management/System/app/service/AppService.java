@@ -5,8 +5,8 @@ import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.exception.exps.AppBadException;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
+import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.ProfileRoleService;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,8 +20,6 @@ public class AppService {
     private ProfileRepository profileRepository;
     @Autowired
     private BCryptPasswordEncoder bc;
-    @Autowired
-    private ProfileRoleService profileRoleService;
     private String username = "Greed";
 
 
@@ -40,12 +38,9 @@ public class AppService {
         entity.setPassword(bc.encode(username+"159951"));
         entity.setLanguage(AppLanguage.UZ);
         entity.setVisible(true);
+        entity.setRole(ProfileRole.ROLE_ADMIN);
         entity.setStatus(GeneralStatus.ACTIVE);
         ProfileEntity profile = profileRepository.save(entity);
-
-        profileRoleService.createUser(profile.getId(), profile.getLanguage());
-        profileRoleService.createAdmin(profile.getId(), profile.getLanguage());
-        profileRoleService.createSuperAdmin(profile.getId(), profile.getLanguage());
         return new AppResponse("DONE");
 
     }

@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.profile.entity;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.attach.entity.AttachEntity;
+import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -62,8 +63,10 @@ public class ProfileEntity {
     private AttachEntity photo;
     // role: ADMIN, USER
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
-    private List<ProfileRoleEntity> roles;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private ProfileRole role;
 
     @PrePersist
     protected void onCreate() {

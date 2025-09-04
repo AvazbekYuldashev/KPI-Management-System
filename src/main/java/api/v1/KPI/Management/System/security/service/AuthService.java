@@ -15,9 +15,9 @@ import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
 import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
+import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.ProfileRoleService;
-import api.v1.KPI.Management.System.profile.service.user.ProfileService;
+import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
 import api.v1.KPI.Management.System.security.dto.AuthDTO;
 import api.v1.KPI.Management.System.security.dto.RegistrationDTO;
 import api.v1.KPI.Management.System.security.dto.ResetPasswordConfirmDTO;
@@ -35,8 +35,6 @@ public class AuthService {
     private ProfileRepository profileRepository;
     @Autowired
     private BCryptPasswordEncoder bc;
-    @Autowired
-    private ProfileRoleService profileRoleService;
     @Autowired
     private EmailSendingService emailSendingService;
     @Autowired
@@ -67,8 +65,8 @@ public class AuthService {
         entity.setStatus(GeneralStatus.IN_REGISTRATION);
         entity.setVisible(true);
         entity.setLanguage(lang);
+        entity.setRole(ProfileRole.ROLE_USER);
         ProfileEntity profile = profileRepository.save(entity);
-        profileRoleService.createUser(entity.getId(), lang);
         return emailSendingService.sendRegistrationEmail(profile.getId(), profile.getUsername(), lang);
     }
 
@@ -110,8 +108,8 @@ public class AuthService {
         response.setCreatedDate(profile.getCreatedDate());
         response.setStatus(profile.getStatus());
         response.setPhoto(attachService.getDTOById(profile.getPhotoId()));
-        response.setRoleList(profileRoleService.getByProfileId(profile.getId(), lang));
-        response.setJwt(JwtUtil.encode(profile.getUsername(), profile.getId(), response.getRoleList())); // retnrn jwt
+        response.setRole(profile.getRole());
+        response.setJwt(JwtUtil.encode(profile.getUsername(), profile.getId(), response.getRole())); // retnrn jwt
         return response;
     }
 

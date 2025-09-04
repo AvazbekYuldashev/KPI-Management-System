@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.profile.service.user;
+package api.v1.KPI.Management.System.profile.service.profile;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
@@ -12,26 +12,27 @@ import api.v1.KPI.Management.System.exception.exps.ResourceConflictException;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
 import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.dto.user.ProfilePasswordUpdate;
 import api.v1.KPI.Management.System.profile.dto.user.ProfileUsernameUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
-import api.v1.KPI.Management.System.profile.entity.ProfileRoleEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.repository.ProfileRoleRepository;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -45,8 +46,6 @@ public class ProfileService {
     private EmailSendingService emailSendingService;
     @Autowired
     private EmailHistoryService emailHistoryService;
-    @Autowired
-    private ProfileRoleRepository profileRoleRepository;
     @Autowired
     private AttachService attachService;
     @Autowired
@@ -107,19 +106,11 @@ public class ProfileService {
     /// Confirms username change: checks the code sent for the temporary username, updates the primary username, and returns the updated JWT token.
     public AppResponse<String> updateUsernameConfirm(CodeConfirmDTO dto, AppLanguage lang) {
         ProfileEntity profile = getById(SpringSecurityUtil.getCurrentUserId(), lang);
-//        if (SmsUtil.isPhone(profile.getUsername())){
-//            smsHistoryService.check(profile.getTempUsername(),dto.getCode(), lang);
-//        }
         if (EmailUtil.isEmail(profile.getUsername())){
             emailHistoryService.check(profile.getTempUsername(), dto.getCode(), lang);
         }
         profileRepository.updateUsername(SpringSecurityUtil.getCurrentUserId(), profile.getTempUsername());
-        List<ProfileRoleEntity> roles = profileRoleRepository.getAllByProfileIdAndVisibleTrue(SpringSecurityUtil.getCurrentUserId());
-        List<ProfileRole> roleList = new ArrayList<>();
-        for (ProfileRoleEntity entity : roles) {
-            roleList.add(entity.getRole());
-        }
-        return new AppResponse<>(JwtUtil.encode(profile.getTempUsername(), profile.getId(), roleList));
+        return new AppResponse<>(JwtUtil.encode(profile.getTempUsername(), profile.getId(), profile.getRole()));
     }
 
 
@@ -134,7 +125,11 @@ public class ProfileService {
     }
 
     public AppResponse<String> deletebyId(String id, AppLanguage lang) {
+        if (!SpringSecurityUtil.getCurrentUserId().equals(id) && !SpringSecurityUtil.haseRole().equals(ProfileRole.ROLE_ADMIN)){
+            throw new AuthorizationDeniedException("You are not allowed to update this KPI."); // todo exp message
+        }
         ProfileEntity profile = getById(id, lang);
+
         profileRepository.deleteSoftById(profile.getId(), false);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
@@ -156,4 +151,17 @@ public class ProfileService {
     }
 
 
+    public PageImpl<ProfileResponseDTO> getAll(int page, int size) {
+        Sort sort = Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<ProfileEntity> pageObj = profileRepository.findAllPage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
+        List<ProfileResponseDTO> response = pageObj.getContent().stream().map(profileMapper::toallResponseDTO).collect(Collectors.toList());
+        long total = pageObj.getTotalElements();
+        return new PageImpl<>(response, pageable, total);
+    }
+
+    public List<ProfileResponseDTO> getAllManager(AppLanguage lang) {
+        List<ProfileEntity> list = profileRepository.findAllByRoleManager(ProfileRole.ROLE_MANAGER);
+        return list.stream().map(profileMapper::toallResponseDTO).collect(Collectors.toList());
+    }
 }
