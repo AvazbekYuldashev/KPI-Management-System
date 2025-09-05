@@ -55,4 +55,5 @@ Content-Type: application/json
 
 
 ###
-GET http://172.16.254.134:8080/auth/registration/email-verification/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMzhiMmI4ZS1jYTllLTQyNzItYjMzNC0yMGJlYzA3NmQ0MTMiLCJpYXQiOjE3NTcwNjE2NTcsImV4cCI6MTc1NzA2NTI1N30.yM2f-oekXvpplCUVLv39Zi_RBARicWSQ0VkS2hGZZAWfnCFEExbE_F8NeveUxH4PyNFReOtxaF36tapNwZa1QQ/UZ
+GET http://172.16.254.134:8080
+    http://172.16.254.134:8080/auth/registration/email-verification/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0MTQ2MjllMi1iMmYxLTRlNjQtYjMzMC1lNGU1OWEyMDJkMmEiLCJpYXQiOjE3NTcwNjE5NTAsImV4cCI6MTc1NzA2NTU1MH0.ftSmwKnJ6_F3J46-uYAridnT2CapRRwo1HpxO7sTtrV9T2Rzn8eIu345pJZwKqPJVtzwBjWR76AJQ-R4cqHHiQ/UZ
