@@ -1,5 +1,5 @@
 ### Registration
-POST http://rttm.astiedu.uz:8080/auth/registration
+POST http://172.16.254.134:8080/auth/registration
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Login
-POST http://localhost:8080/auth/login
+POST http://172.16.254.134:8080/auth/login
 Content-Type: application/json
 
 {
@@ -51,3 +51,8 @@ Content-Type: application/json
   "password": "11223344",
   "confirmCode": "79313"
 }
+
+
+
+###
+GET http://172.16.254.134:8080/auth/registration/email-verification/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMzhiMmI4ZS1jYTllLTQyNzItYjMzNC0yMGJlYzA3NmQ0MTMiLCJpYXQiOjE3NTcwNjE2NTcsImV4cCI6MTc1NzA2NTI1N30.yM2f-oekXvpplCUVLv39Zi_RBARicWSQ0VkS2hGZZAWfnCFEExbE_F8NeveUxH4PyNFReOtxaF36tapNwZa1QQ/UZ
