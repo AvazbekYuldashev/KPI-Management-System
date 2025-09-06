@@ -1,5 +1,5 @@
 ### Registration
-POST http://localhost:8080/auth/registration
+POST http://213.230.99.253:8080/auth/registration
 Content-Type: application/json
 
 {
@@ -12,6 +12,7 @@ Content-Type: application/json
 ### Login
 POST http://172.16.254.134:8080/auth/login
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJkYjdhNjU3OS1jZDJjLTRkNGQtOTY4NS1jYTJmNWM1MTcyMDYiLCJpYXQiOjE3NTcxNjc3MjcsImV4cCI6MTc1NzI1NDEyN30.V3mXoq7mEB1d9E13Q6VeU64TrOPjSYwvuUCVtszOVla05hFgVICK_UHDm_VdIBqPiCTUuiCWeFvOwLRvAuNDhg
 
 {
   "username": "telegram.vzlom@gmail.com",

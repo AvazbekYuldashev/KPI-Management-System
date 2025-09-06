@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/profile")
-@PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
+@PreAuthorize("hasRole('ADMIN')")
 public class ProfileAdminController {
     @Autowired
     private ProfileAdminService profileAdminService;
@@ -31,7 +31,7 @@ public class ProfileAdminController {
     @GetMapping("/all")
     public ResponseEntity<PageImpl<ProfileResponseDTO>> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                 @RequestParam(value = "size", defaultValue = "15") int size) {
-        return ResponseEntity.ok().body(profileAdminService.getAll(page, size));
+        return ResponseEntity.ok().body(profileAdminService.getAll(getCurrentPage(page), size));
     }
 
 

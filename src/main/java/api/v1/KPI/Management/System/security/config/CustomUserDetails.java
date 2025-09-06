@@ -40,7 +40,7 @@ public class CustomUserDetails implements UserDetails {
         this.password = profile.getPassword();
         this.status = profile.getStatus();
         this.role = profile.getRole();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + profile.getRole().name()));
+        this.authorities = List.of(new SimpleGrantedAuthority(profile.getRole().name()));
         this.visible = profile.getVisible();
     }
     @Override
