@@ -1,6 +1,20 @@
 ### Create ADMIN
-GET http://172.16.254.134:8080/auth/7d7a11c1364abd11509f29bcd158ec8b
+GET http://213.230.99.253:8080/auth/7d7a11c1364abd11509f29bcd158ec8b
 Content-Type: application/json
+
+### Login
+POST http://213.230.99.253:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "Greed",
+  "password": "Greed159951"
+}
+
+### Create ADMIN
+GET http://localhost:8080/auth/7d7a11c1364abd11509f29bcd158ec8b
+Content-Type: application/json
+
 
 ### Login
 POST http://localhost:8080/auth/login

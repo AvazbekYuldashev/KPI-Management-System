@@ -1,0 +1,9 @@
+### Get all
+GET http://213.230.99.253:8080/admin/profile/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJlMjFhNDNiMi1mODFiLTQ1NzctYWJiZS1mNjJiNDVlNzZiODEiLCJpYXQiOjE3NTcxNjcyNjYsImV4cCI6MTc1NzI1MzY2Nn0.zLm7SPJ73prNDqzgWCvyMcjjtC9W1stDI6mCvWFK8dfZ2vlN3X5D-mnKNmKfZfrPeRINn1AZdjl64a51PIUhyA
+
+### Get all
+GET http://localhost:8080/admin/profile/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiI1NmIzYTA2Yi02MjZjLTQ2MjItYjdjYy05N2I1ZTRkNjFlZTgiLCJpYXQiOjE3NTcxNjczMTIsImV4cCI6MTc1NzI1MzcxMn0.MtqHd1PQtcEtVUPMGDt9zXidz7zlffi31eXiCMkeFk617rznIXz_na9e80tlz2ZOYoOr-ao30cKjMHhUOOEOlg

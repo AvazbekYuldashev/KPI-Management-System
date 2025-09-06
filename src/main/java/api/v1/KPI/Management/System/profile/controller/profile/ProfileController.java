@@ -23,7 +23,7 @@ public class ProfileController {
     private ProfileService profileService;
 
     @GetMapping("")
-    private ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+    public ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(profileService.getMe(lang));
     }
 
@@ -58,7 +58,7 @@ public class ProfileController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id,
+    public ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id,
                                                        @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
 
         return ResponseEntity.ok().body(profileService.deletebyId(id, lang));

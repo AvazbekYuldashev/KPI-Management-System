@@ -24,12 +24,12 @@ public class ProfileAdminController {
     private ProfileAdminService profileAdminService;
 
     @GetMapping("")
-    private ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+    public ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(profileAdminService.getMe(lang));
     }
 
     @GetMapping("/all")
-    private ResponseEntity<PageImpl<ProfileResponseDTO>> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<PageImpl<ProfileResponseDTO>> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                 @RequestParam(value = "size", defaultValue = "15") int size) {
         return ResponseEntity.ok().body(profileAdminService.getAll(page, size));
     }

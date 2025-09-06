@@ -21,12 +21,12 @@ public class ProfileUserController {
     private ProfileUserService profileUserService;
 
     @GetMapping("")
-    private ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+    public ResponseEntity<ProfileDTO> getMe(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(profileUserService.getMe(lang));
     }
 
     @GetMapping("/manager")
-    private ResponseEntity<List<ProfileResponseDTO>> getAllMananger(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+    public ResponseEntity<List<ProfileResponseDTO>> getAllMananger(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(profileUserService.getAllManager(lang));
     }
 }
